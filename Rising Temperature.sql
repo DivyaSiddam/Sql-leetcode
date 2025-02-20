@@ -1,4 +1,4 @@
-#https://leetcode.com/problems/rising-temperature/submissions/1549916353/?envType=study-plan-v2&envId=top-sql-50
+#https://leetcode.com/problems/rising-temperature/description/?envType=study-plan-v2&envId=top-sql-50
 WITH PreviousWeatherData AS
 (
     SELECT 
