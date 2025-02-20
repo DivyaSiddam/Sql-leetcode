@@ -1,8 +1,20 @@
-#https://leetcode.com/problems/rising-temperature/description/?envType=study-plan-v2&envId=top-sql-50
-SELECT id 
-FROM (
-    SELECT id, temperature, recordDate, 
-           LAG(temperature) OVER (ORDER BY recordDate) AS prev_temp
-    FROM Weather
-) temp_table
-WHERE temperature > prev_temp;
+#https://leetcode.com/problems/rising-temperature/submissions/1549916353/?envType=study-plan-v2&envId=top-sql-50
+WITH PreviousWeatherData AS
+(
+    SELECT 
+        id,
+        recordDate,
+        temperature, 
+        LAG(temperature, 1) OVER (ORDER BY recordDate) AS PreviousTemperature,
+        LAG(recordDate, 1) OVER (ORDER BY recordDate) AS PreviousRecordDate
+    FROM 
+        Weather
+)
+SELECT 
+    id 
+FROM 
+    PreviousWeatherData
+WHERE 
+    temperature > PreviousTemperature
+AND 
+    recordDate = DATE_ADD(PreviousRecordDate, INTERVAL 1 DAY);
